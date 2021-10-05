@@ -4,12 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Users extends Model
+class Income extends Model
 {
-    //
-    protected $table = "users";
+    protected $table = "incomes";
     protected $primaryKey = "id";
 
     public $timestamps = true;
-    public $incrementing = true;
 }
