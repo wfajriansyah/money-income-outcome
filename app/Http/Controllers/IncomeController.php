@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Income;
 use Illuminate\Http\Request;
+use Validator;
 
 class IncomeController extends Controller
 {
@@ -17,69 +19,31 @@ class IncomeController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function prosesCatatUangMasuk(Request $request)
     {
-        //
-    }
+        $rules = [
+            'nominal' => 'required|integer',
+            'notes' => 'required|string'
+        ];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $messages = [
+            'nominal.required' => 'Nominal harus diisi.',
+            'notes.required' => 'Note harus diisi.'
+        ];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Income  $income
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Income $income)
-    {
-        //
-    }
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Income  $income
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Income $income)
-    {
-        //
-    }
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Income  $income
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Income $income)
-    {
-        //
-    }
+        $input = new Income();
+        $input->id = "INC-".generateRandomNumber(15);
+        $input->users_id = Auth::user()->id;
+        $input->nominal = $request->nominal;
+        $input->notes = $request->notes;
+        $input->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Income  $income
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Income $income)
-    {
-        //
+        return redirect()->back()->with(['success' => 'Data berhasil disimpan.']);
     }
 }

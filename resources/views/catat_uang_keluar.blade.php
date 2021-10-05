@@ -1,7 +1,7 @@
 @extends('layouts/auth')
 
 @section('title') Monou @endsection
-@section('title2') Catat Uang Masuk @endsection
+@section('title2') Catat Uang Keluar @endsection
 
 @extends('layouts/navigation')
 
@@ -10,7 +10,7 @@
     <div class="col-md-12">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Catat Uang Masuk</h3>
+              <h3 class="box-title">Catat Uang Keluar</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -19,7 +19,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form method="POST" action="{{ route('prosesCatatUangMasuk') }}">
+                <form method="POST" action="{{ route('prosesCatatUangKeluar') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label>Nominal</label>

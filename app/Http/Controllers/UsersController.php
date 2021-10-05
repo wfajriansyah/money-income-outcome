@@ -82,7 +82,11 @@ class UsersController extends Controller
 
     public function pageCatatUangKeluar()
     {
-
+        $my_data = Auth::user();
+        $total_user = count(Users::all());
+        $total_catatan_masuk = count(Income::all());
+        $total_catatan_keluar = count(Outcome::all());
+        return view('catat_uang_keluar', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar]);
     }
 
     public function pagePerkembangan()

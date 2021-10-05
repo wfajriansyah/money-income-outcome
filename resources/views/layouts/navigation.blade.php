@@ -2,12 +2,12 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">MAIN NAVIGATION</li>
-    <li>
+    <li @if(Route::currentRouteName() == "dashboard") class="active" @endif>
         <a href="{{ route('dashboard') }}">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
     </li>
-    <li class="treeview">
+    <li class="treeview @if(Route::currentRouteName() == "catatUangMasuk" || Route::currentRouteName() == "catatUangKeluar") active @endif">
         <a href="#">
             <i class="fa fa-pencil-square"></i>
             <span>Pencatatan</span>
@@ -16,16 +16,16 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ route('catatUangMasuk') }}"><i class="fa fa-circle-o"></i> Catat Uang Masuk</a></li>
-            <li><a href="{{ route('catatUangKeluar') }}"><i class="fa fa-circle-o"></i> Catat Uang Keluar</a></li>
+            <li @if(Route::currentRouteName() == "catatUangMasuk") class="active" @endif><a href="{{ route('catatUangMasuk') }}"><i class="fa fa-circle-o"></i> Catat Uang Masuk</a></li>
+            <li @if(Route::currentRouteName() == "catatUangKeluar") class="active" @endif><a href="{{ route('catatUangKeluar') }}"><i class="fa fa-circle-o"></i> Catat Uang Keluar</a></li>
         </ul>
     </li>
-    <li>
+    <li @if(Route::currentRouteName() == "riwayat") class="active" @endif>
         <a href="{{ route('riwayat') }}">
             <i class="fa fa-history"></i> <span>Riwayat</span>
         </a>
     </li>
-    <li>
+    <li @if(Route::currentRouteName() == "laporan") class="active" @endif>
         <a href="{{ route('laporan') }}">
             <i class="fa fa-file-archive-o"></i> <span>Laporan</span>
         </a>
