@@ -21,12 +21,12 @@
         </ul>
     </li>
     <li>
-        <a href="./pages/widgets.html">
+        <a href="{{ route('riwayat') }}">
             <i class="fa fa-history"></i> <span>Riwayat</span>
         </a>
     </li>
     <li>
-        <a href="./pages/widgets.html">
+        <a href="{{ route('laporan') }}">
             <i class="fa fa-file-archive-o"></i> <span>Laporan</span>
         </a>
     </li>

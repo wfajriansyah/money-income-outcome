@@ -13,10 +13,12 @@
 
 Route::get('/', 'UsersController@dashboard')->name('dashboard')->middleware('auth');
 Route::get('masuk', 'UsersController@pageLogin')->name('login');
-
-Route::post('proses_masuk', 'UsersController@doSignin')->name('doSignin');
 Route::get('catat_uang_masuk', 'UserController@pageCatatUangMasuk')->name('catatUangMasuk')->middleware('auth');
 Route::get('catat_uang_keluar', 'UserController@pageCatatUangKeluar')->name('catatUangKeluar')->middleware('auth');
+Route::get('riwayat', 'UserController@pageRiwayat')->name('riwayat')->middleware('auth');
+Route::get('laporan', 'UserController@pageLaporan')->name('laporan')->middleware('auth');
+
+Route::post('proses_masuk', 'UsersController@doSignin')->name('doSignin');
 
 Route::middleware('auth')->prefix('admin')->group(function() {
     Route::get('perkembangan', 'UserController@pagePerkembangan')->name('perkembangan');
