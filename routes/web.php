@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UsersController@dashboard')->name('dashboard')->middleware('auth');
+Route::get('/masuk', 'UsersController@pageLogin')->name('login');
+
+Route::post('/proses_masuk', 'UsersController@doSignin')->name('doSignin');

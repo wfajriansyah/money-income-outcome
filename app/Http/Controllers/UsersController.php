@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class UsersController extends Controller
 {
@@ -17,69 +19,43 @@ class UsersController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function dashboard()
     {
-        //
+        return view('dashboard');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function pageLogin()
     {
-        //
+        return view('login');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Users  $users
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Users $users)
+    public function doSignin(Request $request)
     {
-        //
-    }
+        $rules = [
+            'username' => 'required|string|exists:users,username',
+            'password' => 'required|string',
+        ];
+        $messages = [
+            'username.required' => 'Username wajib diisi.',
+            'username.exists' => 'Username tidak terdaftar didatabase.',
+            'password.required' => 'Password wajib diisi.',
+        ];
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Users  $users
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Users $users)
-    {
-        //
-    }
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Users  $users
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Users $users)
-    {
-        //
-    }
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
+        $data = [
+            'username'     => $request->input('username'),
+            'password'  => $request->input('password'),
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Users  $users
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Users $users)
-    {
-        //
+        Auth::attempt($data);
+        if(Auth::check()) {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->back()->withErrors(['errors' => 'Password salah.']);
+        }
     }
 }
