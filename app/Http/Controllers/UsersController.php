@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Users;
+use App\Income;
+use App\Outcome;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -22,7 +24,16 @@ class UsersController extends Controller
     public function dashboard()
     {
         $my_data = Auth::user();
-        return view('dashboard', ['my_data' => $my_data]);
+        $total_user = count(Users::all());
+        $total_catatan_masuk = count(Income::all());
+        $total_catatan_keluar = count(Outcome::all());
+        return view('dashboard', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
     public function pageLogin()
@@ -62,7 +73,11 @@ class UsersController extends Controller
 
     public function pageCatatUangMasuk()
     {
-
+        $my_data = Auth::user();
+        $total_user = count(Users::all());
+        $total_catatan_masuk = count(Income::all());
+        $total_catatan_keluar = count(Outcome::all());
+        return view('catat_uang_masuk', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar]);
     }
 
     public function pageCatatUangKeluar()
