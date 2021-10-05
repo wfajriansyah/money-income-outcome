@@ -17,69 +17,31 @@ class OutcomeController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function prosesCatatUangKeluar(Request $request)
     {
-        //
-    }
+        $rules = [
+            'nominal' => 'required|integer',
+            'notes' => 'required|string'
+        ];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $messages = [
+            'nominal.required' => 'Nominal harus diisi.',
+            'notes.required' => 'Note harus diisi.'
+        ];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Outcome  $outcome
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Outcome $outcome)
-    {
-        //
-    }
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Outcome  $outcome
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Outcome $outcome)
-    {
-        //
-    }
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Outcome  $outcome
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Outcome $outcome)
-    {
-        //
-    }
+        $input = new Outcome();
+        $input->id = "OUT-".generateRandomNumber(15);
+        $input->users_id = Auth::user()->id;
+        $input->nominal = $request->nominal;
+        $input->notes = $request->notes;
+        $input->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Outcome  $outcome
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Outcome $outcome)
-    {
-        //
+        return redirect()->back()->with(['success' => 'Data berhasil disimpan.']);
     }
 }
