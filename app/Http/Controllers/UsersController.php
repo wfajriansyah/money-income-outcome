@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Users;
-use App\Income;
-use App\Outcome;
+use App\Catatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -25,8 +24,8 @@ class UsersController extends Controller
     {
         $my_data = Auth::user();
         $total_user = count(Users::all());
-        $total_catatan_masuk = count(Income::all());
-        $total_catatan_keluar = count(Outcome::all());
+        $total_catatan_masuk = count(Catatan::where('id', 'LIKE', '%INC%')->get());
+        $total_catatan_keluar = count(Catatan::where('id', 'LIKE', '%OUT%')->get());
         return view('dashboard', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar]);
     }
 
@@ -75,8 +74,8 @@ class UsersController extends Controller
     {
         $my_data = Auth::user();
         $total_user = count(Users::all());
-        $total_catatan_masuk = count(Income::all());
-        $total_catatan_keluar = count(Outcome::all());
+        $total_catatan_masuk = count(Catatan::where('id', 'LIKE', '%INC%')->get());
+        $total_catatan_keluar = count(Catatan::where('id', 'LIKE', '%OUT%')->get());
         return view('catat_uang_masuk', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar]);
     }
 
@@ -84,9 +83,39 @@ class UsersController extends Controller
     {
         $my_data = Auth::user();
         $total_user = count(Users::all());
-        $total_catatan_masuk = count(Income::all());
-        $total_catatan_keluar = count(Outcome::all());
+        $total_catatan_masuk = count(Catatan::where('id', 'LIKE', '%INC%')->get());
+        $total_catatan_keluar = count(Catatan::where('id', 'LIKE', '%OUT%')->get());
         return view('catat_uang_keluar', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar]);
+    }
+
+    public function pageRiwayat()
+    {
+        $my_data = Auth::user();
+        $total_user = count(Users::all());
+        $total_catatan_masuk = count(Catatan::where('id', 'LIKE', '%INC%')->get());
+        $total_catatan_keluar = count(Catatan::where('id', 'LIKE', '%OUT%')->get());
+        $my_history = Catatan::join('users', 'users.id', '=', 'catatans.users_id')->where('users_id', Auth::user()->id)->orderBy('catatans.created_at', 'desc')->get(['users.fullname', 'catatans.id AS idnya', 'catatans.*']);
+        return view('riwayat', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar, 'history' => $my_history]);
+    }
+
+    public function pageEditRiwayat($id)
+    {
+        $my_data = Auth::user();
+        $total_user = count(Users::all());
+        $total_catatan_masuk = count(Catatan::where('id', 'LIKE', '%INC%')->get());
+        $total_catatan_keluar = count(Catatan::where('id', 'LIKE', '%OUT%')->get());
+        $history = Catatan::where('id', $id)->firstOrFail(['catatans.*', 'id as idnya']);
+        return view('editRiwayat', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar, 'history' => $history]);
+    }
+
+    public function pageLaporan()
+    {
+        $my_data = Auth::user();
+        $total_user = count(Users::all());
+        $total_catatan_masuk = count(Catatan::where('id', 'LIKE', '%INC%')->get());
+        $total_catatan_keluar = count(Catatan::where('id', 'LIKE', '%OUT%')->get());
+        $history = Catatan::where('users_id', Auth::user()->id)->get();
+        return view('laporanRiwayat', ['my_data' => $my_data, 'total_user' => $total_user, 'total_catatan_masuk' => $total_catatan_masuk, 'total_catatan_keluar' => $total_catatan_keluar, 'history' => $history]);
     }
 
     public function pagePerkembangan()

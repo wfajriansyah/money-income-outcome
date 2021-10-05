@@ -19,9 +19,12 @@ Route::get('riwayat', 'UsersController@pageRiwayat')->name('riwayat')->middlewar
 Route::get('laporan', 'UsersController@pageLaporan')->name('laporan')->middleware('auth');
 Route::get('logout', 'UsersController@logout')->name('logout')->middleware('auth');
 
+Route::get('editRiwayat/{id}', 'UsersController@pageEditRiwayat')->name('editRiwayat')->middleware('auth')->where('id', '(INC|OUT)-[0-9]+');
+
 Route::post('proses_masuk', 'UsersController@doSignin')->name('doSignin');
-Route::post('prosesCatatUangMasuk', 'IncomeController@prosesCatatUangMasuk')->name('prosesCatatUangMasuk')->middleware('auth');
-Route::post('prosesCatatUangKeluar', 'OutcomeController@prosesCatatUangKeluar')->name('prosesCatatUangKeluar')->middleware('auth');
+Route::post('prosesCatatUangMasuk', 'CatatanController@prosesCatatUangMasuk')->name('prosesCatatUangMasuk')->middleware('auth');
+Route::post('prosesCatatUangKeluar', 'CatatanController@prosesCatatUangKeluar')->name('prosesCatatUangKeluar')->middleware('auth');
+Route::post('prosesEditCatatan', 'CatatanController@prosesEditCatatan')->name('prosesEditCatatan')->middleware('auth');
 
 Route::middleware('auth')->prefix('admin')->group(function() {
     Route::get('perkembangan', 'UsersController@pagePerkembangan')->name('perkembangan');

@@ -17,3 +17,7 @@ function generateRandomNumber($length = 10) {
     }
     return $randomString;
 }
+function convertRupiah($angka) {
+    $hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+	return $hasil_rupiah;
+}

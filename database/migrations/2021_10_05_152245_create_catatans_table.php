@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOutcomesTable extends Migration
+class CreateCatatansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOutcomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('outcomes', function (Blueprint $table) {
+        Schema::create('catatans', function (Blueprint $table) {
             $table->char('id', 30)->primary();
             $table->integer('users_id');
             $table->double('nominal', 100, 8);
@@ -29,6 +29,6 @@ class CreateOutcomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('outcomes');
+        Schema::dropIfExists('catatans');
     }
 }
