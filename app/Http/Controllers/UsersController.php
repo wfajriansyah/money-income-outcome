@@ -21,7 +21,8 @@ class UsersController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $my_data = Auth::user();
+        return view('dashboard', ['my_data' => $my_data]);
     }
 
     public function pageLogin()
@@ -57,5 +58,25 @@ class UsersController extends Controller
         } else {
             return redirect()->back()->withErrors(['errors' => 'Password salah.']);
         }
+    }
+
+    public function pageCatatUangMasuk()
+    {
+
+    }
+
+    public function pageCatatUangKeluar()
+    {
+
+    }
+
+    public function pagePerkembangan()
+    {
+
+    }
+
+    public function pageLaporanKeseluruhan()
+    {
+
     }
 }
