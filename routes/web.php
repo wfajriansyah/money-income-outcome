@@ -20,5 +20,5 @@ Route::get('catat_uang_keluar', 'UserController@pageCatatUangKeluar')->name('cat
 
 Route::middleware('auth')->prefix('admin')->group(function() {
     Route::get('perkembangan', 'UserController@pagePerkembangan')->name('perkembangan');
-    Route::get('perkembangan', 'UserController@pageLaporanKeseluruhan')->name('laporan_keseluruhan');
+    Route::get('laporan_keseluruhan', 'UserController@pageLaporanKeseluruhan')->name('laporan_keseluruhan');
 });
