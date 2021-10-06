@@ -32,8 +32,8 @@
     </li>
     @if($my_data->level == "Admin")
         <li class="header">ADMIN MANAGEMENT</li>
-        <li><a href="{{ route('perkembangan') }}"><i class="fa fa-bar-chart"></i> <span>Lihat Perkembangan</span></a></li>
-        <li><a href="{{ route('laporan_keseluruhan') }}"><i class="fa fa-inbox"></i> <span>Lihat Laporan Keseluruhan</span></a></li>
+        <li @if(Route::currentRouteName() == "perkembangan") class="active" @endif><a href="{{ route('perkembangan') }}"><i class="fa fa-bar-chart"></i> <span>Lihat Perkembangan</span></a></li>
+        <li @if(Route::currentRouteName() == "laporan_keseluruhan") class="active" @endif><a href="{{ route('laporan_keseluruhan') }}"><i class="fa fa-inbox"></i> <span>Lihat Laporan Keseluruhan</span></a></li>
     @endif
 </ul>
 @endsection

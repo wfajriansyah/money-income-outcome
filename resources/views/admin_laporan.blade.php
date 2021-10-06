@@ -1,7 +1,7 @@
 @extends('layouts/auth')
 
 @section('title') Monou @endsection
-@section('title2') Laporan Catatan @endsection
+@section('title2') Laporan Keseluruhan @endsection
 
 @extends('layouts/navigation')
 
@@ -10,7 +10,7 @@
     <div class="col-md-12">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Laporan Catatan</h3>
+              <h3 class="box-title">Laporan Catatan Keseluruhan</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -19,7 +19,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form method="POST" action="{{ route('prosesPeriodeRiwayat') }}">
+                <form method="POST" action="{{ route('prosesLaporanKeseluruhan') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label>Periode Bulan</label>
@@ -56,8 +56,8 @@
                     Total Menabung : {{ convertRupiah($menabung) }}<br>
                     Total Pengeluaran : {{ convertRupiah($pengeluaran) }}<br>
                     Total Semuanya : {{ convertRupiah($menabung + $pengeluaran) }}<hr>
-                    Maks Tabungan : Rp. 1.000.000,00<br>
-                    Maks Pengeluaran : Rp. 800.000,00<br>
+                    Maks Tabungan (Diambil dari keseluruhan dan dihitung rata rata): {{ convertRupiah($rata_tabungan) }}<br>
+                    Maks Pengeluaran (Diambil dari keseluruhan dan dihitung rata rata): {{ convertRupiah($rata_pengeluaran) }}<br>
                     Profit : {{ $isProfit }}<br>
                     Rugi : {{ $isRugi }}<br>
                     Balance : {{ $isBalance }}<hr>

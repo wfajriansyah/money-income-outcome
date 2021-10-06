@@ -25,8 +25,10 @@ Route::post('proses_masuk', 'UsersController@doSignin')->name('doSignin');
 Route::post('prosesCatatUangMasuk', 'CatatanController@prosesCatatUangMasuk')->name('prosesCatatUangMasuk')->middleware('auth');
 Route::post('prosesCatatUangKeluar', 'CatatanController@prosesCatatUangKeluar')->name('prosesCatatUangKeluar')->middleware('auth');
 Route::post('prosesEditCatatan', 'CatatanController@prosesEditCatatan')->name('prosesEditCatatan')->middleware('auth');
+Route::post('prosesPeriodeRiwayat', 'CatatanController@prosesPeriodeRiwayat')->name('prosesPeriodeRiwayat')->middleware('auth');
 
 Route::middleware('auth')->prefix('admin')->group(function() {
     Route::get('perkembangan', 'UsersController@pagePerkembangan')->name('perkembangan');
     Route::get('laporan_keseluruhan', 'UsersController@pageLaporanKeseluruhan')->name('laporan_keseluruhan');
+    Route::post('prosesLaporanKeseluruhan', 'CatatanController@prosesLaporanKeseluruhan')->name('prosesLaporanKeseluruhan');
 });
