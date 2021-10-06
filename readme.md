@@ -54,6 +54,15 @@ if(($rata_rata_tabungan - $total_menabung) < 0) {
     $isKekurangan = convertRupiah($rata_rata_tabungan - $total_menabung);
 }
 ```
+## Usage
+```bash
+git clone https://github.com/wfajriansyah/money-income-outcome
+cd money-income-outcome
+# Edit database in .env
+php artisan migrate
+php artisan db:seed
+php artisan db:seed --class Anu
+```
 
 ## License
 
